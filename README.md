@@ -1,16 +1,35 @@
 # Unidimensional package using tabu search
 
+## Explanation
+
 ## Data structures
 
 ```
-    class Boxes {
+    class BoxesLists {
         fitness: number;
-        array : [number];
+        Box: ItemList;
+        lenght: int;
+        first: ItemList;
+        last: ItemList;
+    }
+
+    class ItemList{
+        lenght: int;
+        first: *Node;
+        last: *Node;
+        next: ItemList;
+        previous: ItemList;
+    }
+
+    class Node {
+        value: int;
+        next: *Node;
+        previous: *Node;
     }
 
     class Solutions {
-        local: Boxes;
-        global: Boxes;
+        local: BoxesList;
+        global: BoxesLists;
     }
 
     Boxes tabuList[n]
