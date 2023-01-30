@@ -1,31 +1,27 @@
 #include <iostream>
-#include <stdlib.h>
+#include <vector>
 
-
-class Node{
-        
-};
-class List
-{   
-    Node next;
-};
-
-class Boxes {
-    public:
-        int fitness;
-        int **Items = (int**) malloc(sizeof(int*));
-        
-        Boxes(int fitness)
-        {
-            fitness = fitness;
-            
-        }
-};
-
-
-
-int main() 
+class BoxList
 {
-    std::cout << "Hello World!";
+    private:
+        // private methods
+        void change_fitness()
+		{
+
+		}
+	public:
+		int *fitness;
+        int length = 0;
+		std::vector<std::vector<int>> *box {};
+        
+        // methods
+
+
+	
+};
+
+int main()
+{
+    BoxList box_list;
     return 0;
 }
