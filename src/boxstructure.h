@@ -49,10 +49,6 @@ public:
     BoxList global_solution;
     BoxList local_solution;
     vector<BoxList> tabu_list;
-    vector<BoxList> get_neighbors(BoxList origin)
-    {
-        return vector<BoxList>();
-    }
     BoxList find_optimal(vector<BoxList>)
     {
         return BoxList();
