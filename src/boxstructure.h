@@ -1,3 +1,6 @@
+#ifndef ANIMALS
+#define ANIMALS
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -5,20 +8,22 @@ using namespace std;
 class BoxList
 {
     private:
-        
-	public:
-		vector<vector<int>> *boxes = new vector<vector<int>>;
+
+    public:
+        vector<vector<int>> *boxes = new vector<vector<int>>;
         // public methods
         int get_fitness()
         {
             int fitness = (*boxes).size();
             return fitness;
         }
-        int get_weight (int index)
+        int get_weight(int index)
         {
-            if (index < 0) index = (*boxes).size() + index;
+            if (index < 0)
+                index = (*boxes).size() + index;
             int sum = 0;
-            for (int n : (*boxes)[index]) sum += n;
+            for (int n : (*boxes)[index])
+                sum += n;
             return sum;
         }
         BoxList copy()
@@ -32,29 +37,25 @@ class BoxList
         }
         bool operator==(BoxList rhs)
         {
-            if ((*boxes) == (*rhs.boxes)) return 1;
+            if ((*boxes) == (*rhs.boxes))
+                return 1;
             return 0;
         }
 };
 
 class Solutions
 {
-    public:
-        BoxList global_solution;
-        BoxList local_solution;
-        vector<BoxList> tabu_list;
-        vector<BoxList> get_neighbors(BoxList origin)
-        {
-            return vector<BoxList>();
-        }
-        BoxList find_optimal(vector<BoxList>)
-        {
-            return BoxList();
-        }
-
+public:
+    BoxList global_solution;
+    BoxList local_solution;
+    vector<BoxList> tabu_list;
+    BoxList find_optimal(vector<BoxList>)
+    {
+        return BoxList();
+    }
 };
 
-int main()
+void test_method()
 {
     BoxList box_list;
     (*box_list.boxes).push_back(vector<int>{4, 4});
@@ -69,5 +70,6 @@ int main()
     cout << "box_list's first box's weight: " << box_list.get_weight(0) << '\n';
     (*box_list_copy.boxes)[0].erase((*box_list_copy.boxes)[0].begin() + 1);
     cout << "box_list_copy's first box's weight: " << box_list_copy.get_weight(0) << '\n';
-    return 0;
 }
+
+#endif
