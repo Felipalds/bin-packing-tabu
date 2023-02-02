@@ -5,7 +5,7 @@
 #include <fstream>
 using namespace std;
 
-BoxList bin_pack_from_file(
+BoxList bin_pack_from_file( // Reads max_weight\nitem_amount\nitem\u0009item2... file format
     string file_name,
     int& max_weight,
     int& item_amount)
@@ -42,14 +42,37 @@ int main(int argc, char* argsv[])
 {
     char* command_string = argsv[0];
     string file_name = argsv[1];
-
+    //
+    int epochs = 10;
+    int tabu_length = 2;
+    //
     int weight, item_amount;
-    BoxList box_list = bin_pack_from_file(file_name, weight, item_amount);
-    cout << weight << '\n' << item_amount << '\n';
-    for (vector<int> v : (*box_list.boxes))
+    BoxList initial_sol = bin_pack_from_file(file_name, weight, item_amount);
+    Solutions solutions;
+    solutions.global_solution = initial_sol;
+    solutions.local_solution = initial_sol;
+    // get neighbors, local search for each, check fitness, if higher than local, then it is the current local
+    // also global if necessary
+    for (int i = 0; i < epochs; i++)
     {
-        cout << v[0] << '\t';
+        vector<BoxList> neighbors = create_neighbors(initial_sol);
+        solutions.local_solution = neighbors[0];
+        for (BoxList box_list : neighbors)
+        {
+            local_search(box_list);
+            int fitness = box_list.get_fitness();
+            if (fitness > solutions.local_solution.get_fitness() && !solutions.has_on_tabu(box_list))
+            {
+                solutions.local_solution = box_list;
+            }
+            if (fitness > solutions.local_solution.get_fitness())
+            {
+                solutions.global_solution = box_list;
+            }
+        }
+        if (solutions.tabu_list.size() == tabu_length) solutions.tabu_list.erase(solutions.tabu_list.begin());
+        solutions.tabu_list.push_back(solutions.local_solution);
+        
     }
-
     return 0;
 }

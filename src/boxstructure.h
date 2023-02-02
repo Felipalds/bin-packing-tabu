@@ -45,14 +45,22 @@ class BoxList
 
 class Solutions
 {
-public:
-    BoxList global_solution;
-    BoxList local_solution;
-    vector<BoxList> tabu_list;
-    BoxList find_optimal(vector<BoxList>)
-    {
-        return BoxList();
-    }
+    public:
+        BoxList global_solution;
+        BoxList local_solution;
+        vector<BoxList> tabu_list;
+        BoxList find_optimal(vector<BoxList>)
+        {
+            return BoxList();
+        }
+        int has_on_tabu(BoxList solution)
+        {
+            for (BoxList sol : tabu_list)
+            {
+                if (sol == solution) return 1;
+            }
+            return 0;
+        }
 };
 
 void test_method()

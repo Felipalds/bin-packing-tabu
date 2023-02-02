@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-vector<BoxList> create_neighbors() // Leo
+vector<BoxList> create_neighbors(BoxList box_list) // Leo
 {
     return vector<BoxList>{};
 }
