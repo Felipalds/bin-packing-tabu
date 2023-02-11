@@ -1,41 +1,19 @@
-
-class Box:
-    items = []
-    max_weight = int()
-
-    def __init__(self):
-        pass
-
-
 class BoxList:
-    boxes = [ Box ]
+    boxes = [] #Box array
     fitness = int()
     box_weight = int()
 
-    def __init__(self):
-        self.boxes = []
+    def __init__(self, boxArray):
+        self.boxes = boxArray
+        self.getFitness()
 
     def generateLocalSearch(self) -> list("BoxList"):
         pass
+
     def findNeighbors(self) -> list("BoxList"):
         pass
 
-
-class Solutions:
-    tabu_list = [ BoxList() ]
-    local_solution = BoxList()
-    global_solution = BoxList()
-    current_list = BoxList()
-
-
-    def findLocalSolution(self):
-        self.findBest(self.localSolution, self.currentList())
+    def getFitness(self):
         pass
 
-    def findGlobalSolution(self):
-        self.findBest(self.globalSolution, self.currentList())
-        pass
 
-    def findBest():
-        #for()
-        pass
