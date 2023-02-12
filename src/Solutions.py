@@ -1,12 +1,13 @@
 from BoxList import BoxList
 
 class Solutions:
-    tabu_list = {}
+    tabu_list = {BoxList : int}
     local_solution = BoxList()
     global_solution = BoxList()
     current_list = BoxList()
 
     def __init__(self, initial_solution : BoxList = None):
+        self.tabu_list = {}
         self.global_solution = initial_solution
         self.local_solution = initial_solution
         self.current_list = initial_solution
