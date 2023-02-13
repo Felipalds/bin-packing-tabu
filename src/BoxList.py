@@ -1,3 +1,5 @@
+import copy
+
 class Box:
     items = []
 
@@ -65,6 +67,20 @@ class BoxList:
             boxPosition += 1
             print(newList)
         return(newList)
+    
+    def findneighbor(self) -> "BoxList": 
+        list_array = self.boxes
+        aux_tam = len(list_array)-1
+        list_neighbor = []
+        while aux_tam > -1:
+            if len(list_array[aux_tam]) > 1:
+                new_box = list_array[aux_tam].pop()
+                list_array.insert(0, [new_box])
+                list_neighbor.append(copy.deepcopy(list_array))
+                aux_tam = len(list_array)-1 
+            else:
+                aux_tam -= 1
+        return(list_neighbor)
 
     def getBoxWeight(self, index, passedList):
         if(index >= len(passedList)):
