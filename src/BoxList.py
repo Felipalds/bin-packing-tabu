@@ -12,28 +12,30 @@ class BoxList:
         currentList = self.boxes
         newListLenght = len(currentList)
         newList = currentList
-        for boxPosition, box in enumerate(currentList):
+
+        boxPosition = 0
+        for box in currentList:
             if(boxPosition >= 1):
                 if(len(newList[boxPosition - 1]) <= 1):
                     newList.pop(0)
-                    newListLenght -= 1
-            isAdded = False
-            for itemPosition, item in enumerate(box):
-                if(isAdded):
-                    newList[boxPosition].pop(0)
-
-                isAdded = False
+                    newListLenght = len(newList)
+                    boxPosition -= 1
+            for item in box:
                 index = 0
-                while(not isAdded):
+                while(True):
                     index += 1
-                    position = newListLenght - index
-                    if(position < boxPosition):
+                    position = len(newList) - index
+                    if(newList[boxPosition - 1] == 0):
+                        position += 1
+                    print(len(newList), position, boxPosition)
+                    if(position <= boxPosition):
                         break
                     if(self.getBoxWeight(position, newList) + item <= self.boxWeight):
-                        isAdded = True
                         newList[position].append(item)
+                        newList[boxPosition].pop(0)
                         break
-
+            boxPosition += 1
+            print(newList)
         return(newList)
 
     def getBoxWeight(self, index, passedList):
@@ -45,12 +47,6 @@ class BoxList:
             currentWeight += item
         return currentWeight
     
-    def generateEmptyList(self, length):
-        newList = []
-        for c in range(length):
-            newList.append([])
-        return newList
-
     def findNeighbors(self) -> list("BoxList"):
         pass
 
