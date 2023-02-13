@@ -73,9 +73,9 @@ class BoxList:
         aux_tam = len(list_array)-1
         list_neighbor = []
         while aux_tam > -1:
-            if len(list_array[aux_tam]) > 1:
-                new_box = list_array[aux_tam].pop()
-                list_array.insert(0, [new_box])
+            if len(list_array[aux_tam].items) > 1:
+                new_box = list_array[aux_tam].items.pop()
+                list_array.insert(0, Box([new_box,]))
                 list_neighbor.append(copy.deepcopy(list_array))
                 aux_tam = len(list_array)-1 
             else:
