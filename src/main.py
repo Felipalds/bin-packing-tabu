@@ -1,6 +1,7 @@
 import sys
 from Solutions import Solutions
 from BoxList import BoxList, Box
+import copy
 
 arguments = sys.argv[:]
 file_name = arguments[1]
