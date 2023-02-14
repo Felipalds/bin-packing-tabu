@@ -40,33 +40,24 @@ class BoxList:
 
     def generateLocalSearch(self) -> "BoxList":
         currentList = self.boxes
-        newListLenght = len(currentList)
-        newList = currentList
+        newList = currentList.copy()
 
-        boxPosition = 0
-        for box in currentList:
-            if(boxPosition >= 1):
-                if(len(newList[boxPosition - 1]) <= 1):
+        isAdded = True
+        while(len(newList[0].items) == 1 and isAdded):
+            for j, backbox in enumerate(reversed(newList)):
+                if(j == len(newList) - 1):
+                    isAdded = False
+                    break
+                if(backbox.getWeight() + newList[0].items[0] <= self.max_weight):
+
+                    backbox.items.append(newList[0].items[0])
                     newList.pop(0)
-                    newListLenght = len(newList)
-                    boxPosition -= 1
-            for item in box:
-                index = 0
-                while(True):
-                    index += 1
-                    position = len(newList) - index
-                    if(newList[boxPosition - 1] == 0):
-                        position += 1
-                    print(len(newList), position, boxPosition)
-                    if(position <= boxPosition):
-                        break
-                    if(self.getBoxWeight(position, newList) + item <= self.boxWeight):
-                        newList[position].append(item)
-                        newList[boxPosition].pop(0)
-                        break
-            boxPosition += 1
+                    break
+
+                
             print(newList)
         return(newList)
+
     
     def findneighbor(self) -> "BoxList": 
         list_array = self.boxes
@@ -82,17 +73,6 @@ class BoxList:
                 aux_tam -= 1
         return(list_neighbor)
 
-    def getBoxWeight(self, index, passedList):
-        if(index >= len(passedList)):
-            index -= 1
-        currentBox = passedList[index]
-        currentWeight = 0
-        for item in currentBox:
-            currentWeight += item
-        return currentWeight
-    
-    def findNeighbors(self) -> list("BoxList"):
-        pass
 
     def getFitness(self):
         pass
