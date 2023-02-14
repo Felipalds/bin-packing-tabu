@@ -2,9 +2,9 @@ from BoxList import BoxList
 
 class Solutions:
     tabu_list = {BoxList : int}
-    local_solution = BoxList()
-    global_solution = BoxList()
-    current_list = BoxList()
+    # local_solution = BoxList()
+    # global_solution = BoxList()
+    # current_list = BoxList()
 
     def __init__(self, initial_solution : BoxList = None):
         self.tabu_list = {}

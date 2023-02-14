@@ -1,17 +1,39 @@
 from BoxList import BoxList
+from BoxList import Box
 
 def __main__():
-    currentBoxes = BoxList([[1],[2],[3, 2],[3, 2],[4]], 6)
+    box1 = Box([1])
+    box2 = Box([2])
+    box3 = Box([3, 2])
+    box4 = Box([3, 2])
+    box5 = Box([4])
+
+    currentBoxes = BoxList(6, [box1, box2, box3, box4, box5])
     print(currentBoxes.boxes)
     localSearchArray = currentBoxes.generateLocalSearch()
     print(localSearchArray, "\n")
     
-    currentBoxes2 = BoxList([[2],[1],[2],[3, 2],[3],[4]], 6)
+    box1 = Box([2])
+    box2 = Box([1])
+    box3 = Box([2])
+    box4 = Box([3, 2])
+    box5 = Box([3])
+    box6 = Box([4])
+    currentBoxes2 = BoxList(6, [box1, box2, box3, box4, box5, box6])
     print(currentBoxes2.boxes)
     localSearchArray = currentBoxes2.generateLocalSearch()
     print(localSearchArray, "\n")
 
-    currentBoxes3 = BoxList([[2],[2],[1],[2],[3],[3],[4]], 6)
+
+    box1 = Box([2])
+    box2 = Box([2])
+    box3 = Box([1])
+    box4 = Box([2])
+    box5 = Box([3])
+    box6 = Box([3])
+    box7 = Box([4])
+
+    currentBoxes3 = BoxList(6, [box1, box2, box3, box4, box5, box6, box7])
     print(currentBoxes3.boxes)
     localSearchArray = currentBoxes3.generateLocalSearch()
     print(localSearchArray, "\n")
