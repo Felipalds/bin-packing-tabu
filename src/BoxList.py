@@ -53,13 +53,11 @@ class BoxList:
                     backbox.items.append(newList[0].items[0])
                     newList.pop(0)
                     break
-
                 
-            print(newList)
-        return(newList)
+        return(BoxList(self.max_weight, newList))
 
     
-    def findneighbor(self) -> "BoxList": 
+    def findNeighbors(self) -> list("BoxList"): 
         list_array = self.boxes
         aux_tam = len(list_array)-1
         list_neighbor = []
@@ -67,7 +65,7 @@ class BoxList:
             if len(list_array[aux_tam].items) > 1:
                 new_box = list_array[aux_tam].items.pop()
                 list_array.insert(0, Box([new_box,]))
-                list_neighbor.append(copy.deepcopy(list_array))
+                list_neighbor.append(copy.deepcopy(BoxList(self.max_weight, list_array)))
                 aux_tam = len(list_array)-1 
             else:
                 aux_tam -= 1

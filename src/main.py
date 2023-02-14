@@ -12,6 +12,8 @@ with open(file_name, 'r') as file_handle:
     max_steps = int(input("Insert max steps: "))
     tabu_count = int(input("Insert tabu count: "))
     solutions = Solutions(box_list.generateLocalSearch())
+    solutions.add_tabu(solutions.local_solution, tabu_count)
+
     print(f"== STEP {step} ==")
     print(f"Worst Solution: {box_list}")
     print(f"Global Solution: {solutions.global_solution}\n")
@@ -19,22 +21,20 @@ with open(file_name, 'r') as file_handle:
     print(f"Tabu List: {solutions.tabu_list}\n")
     while (step < max_steps):
         print(f"-- NEIGHBORS --")
-        neighbors = BoxList.findNeighbors(solutions.current_list)
-        for neighbor in neighbors: print(neighbor)
-        opt_neighbors = [neighbor.generateLocalSearch() for neighbor in neighbors]
+        neighbors = solutions.current_list.findNeighbors()
+        local_searched_neighbors = [neighbor.generateLocalSearch() for neighbor in neighbors]
         print(f"-- NEIGHBORS (LS) --")
-        for neighbor in opt_neighbors: print(neighbor)
-        for neighbor in opt_neighbors:
+        for neighbor in local_searched_neighbors:
             if not neighbor in solutions.tabu_list.keys():
                 solutions.local_solution = neighbor
                 break
-        for neighbor in opt_neighbors:
-            if not neighbor in solutions.tabu_list.keys():
-                if neighbor.fitness >= solutions.global_solution.fitness:
-                    solutions.global_solution = neighbor
-                if neighbor.fitness > solutions.local_solution.fitness:
-                    solutions.local_solution = neighbor
-                    solutions.current_list = neighbor
+        for searched in local_searched_neighbors:
+            if not searched in solutions.tabu_list.keys():
+                if searched.fitness >= solutions.global_solution.fitness:
+                    solutions.global_solution = searched
+                if searched.fitness > solutions.local_solution.fitness:
+                    solutions.local_solution = searched
+                    solutions.current_list = searched
                 solutions.advance_tabu()
                 solutions.add_tabu(solutions.local_solution, tabu_count)
         print(f"== STEP {step} ==")
