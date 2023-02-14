@@ -74,8 +74,3 @@ class BoxList:
 
     def getFitness(self):
         pass
-
-    
-
-
-

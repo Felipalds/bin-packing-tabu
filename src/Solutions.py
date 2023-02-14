@@ -1,34 +1,16 @@
 from BoxList import BoxList
 
 class Solutions:
-    tabu_list = {BoxList : int}
-    # local_solution = BoxList()
-    # global_solution = BoxList()
-    # current_list = BoxList()
+    tabu_list = []
 
-    def __init__(self, initial_solution : BoxList = None):
-        self.tabu_list = {}
+    def __init__(self, initial_solution : BoxList = None, tabu_length : int = 3):
+        self.tabu_list = []
         self.global_solution = initial_solution
         self.local_solution = initial_solution
         self.current_list = initial_solution
+        self.tabu_length = tabu_length
 
-    def add_tabu(self, box_list : BoxList, tabu_count : int = 3):
-        self.tabu_list[box_list] = tabu_count
-
-    def advance_tabu(self):
-        for key in self.tabu_list.keys():
-            self.tabu_list[key] -= 1
-            if self.tabu_list[key] <= 0:
-                del self.tabu_list[key]
-
-    def findLocalSolution(self):
-        self.findBest(self.localSolution, self.currentList())
-        pass
-
-    def findGlobalSolution(self):
-        self.findBest(self.globalSolution, self.currentList())
-        pass
-
-    def findBest():
-        #for()
-        pass
+    def add_tabu(self, box_list : BoxList):
+        if len(self.tabu_list) > self.tabu_length:
+            del self.tabu_list[0]
+        self.tabu_list.append(box_list)
