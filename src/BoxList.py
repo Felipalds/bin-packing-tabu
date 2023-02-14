@@ -38,6 +38,9 @@ class BoxList:
         else:
             return False
 
+    def copy(self):
+        return BoxList(self.max_weight, self.boxes)
+
     def generateLocalSearch(self) -> "BoxList":
         currentList = self.boxes
         newList = currentList.copy()

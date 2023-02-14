@@ -10,46 +10,35 @@ with open(file_name, 'r') as file_handle:
     box_list = BoxList(max_weight, [Box([int(item),]) for item in file_handle.readline().split()])
 step = 0
 max_steps = int(input("Insert max steps: "))
-tabu_count = int(input("Insert tabu count: "))
+tabu_max = int(input("Insert tabu max: "))
 local_searched = box_list.generateLocalSearch()
-solutions = Solutions(local_searched)
-solutions.current_list = local_searched
-solutions.add_tabu(solutions.current_list)
-print("LOCAL SEARCHED:", local_searched)
-print("LOCAL SEARCH!: ", solutions.current_list)
-print(f"== STEP {step} ==")
-print(f"Worst Solution: {box_list}")
-print(f"Global Solution: {solutions.global_solution}\n")
-print(f"Local Solution: {solutions.local_solution}\n")
-print(f"Tabu List: {solutions.tabu_list}\n")
+local_solution = local_searched.copy()
+global_solution = local_searched.copy()
+tabu_list = []
+print(local_solution, global_solution)
 while (step < max_steps):
-    print("CURRENT LIST : ", solutions.current_list)
-    neighbors = solutions.current_list.findNeighbors()
-    print("-- NEIGHBORS -- ")
-    for neighbor in neighbors:
-        print(neighbor)
-    print(len(neighbors))
-    local_searched_neighbors = [neighbor.generateLocalSearch() for neighbor in neighbors]
-    print(f"-- NEIGHBORS (LS) --")
-    print(len(local_searched_neighbors))
-    for neighbor in local_searched_neighbors:
-        print(neighbor)
+    print(f"==STEP {step}==")
+    print(f"Local solution: {local_solution}")
+    print(f"Global solution: {global_solution}")
+    local_searched_neighbors = [neighbor.generateLocalSearch() for neighbor in local_solution.findNeighbors()]
+    # for n in local_searched_neighbors: print(n)
     for searched in local_searched_neighbors:
-        if not searched in solutions.tabu_list:
-            solutions.local_solution = searched
+        if not searched in tabu_list:
+            local_solution = searched.copy()
             break
     for searched in local_searched_neighbors:
-        if not searched in solutions.tabu_list:
-            if searched.fitness <= solutions.global_solution.fitness:
-                solutions.global_solution = searched
-            if searched.fitness < solutions.local_solution.fitness:
-                solutions.local_solution = searched
-                solutions.current_list = searched
-            solutions.add_tabu(solutions.local_solution)
+        # print("SEARCH:",searched)
+        if not searched in tabu_list:
+            if searched.fitness < local_solution.fitness:
+                local_solution = searched.copy()
+                if len(tabu_list) == tabu_max:
+                    tabu_list.pop(0)
+                tabu_list.append(local_solution)
+            print(searched.fitness, global_solution.fitness)
+            if searched.fitness < global_solution.fitness:
+                # print(searched.fitness, global_solution.fitness)
+                # print("OMG", searched)
+                global_solution = searched.copy()
+                # print("OMG2:",global_solution)
     step += 1
-    print(f"== STEP {step} ==")
-    print(f"Global Solution: {solutions.global_solution}\n")
-    print(f"Local Solution: {solutions.local_solution}\n")
-    print(f"Tabu List: {solutions.tabu_list}\n")
-            
     
