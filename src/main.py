@@ -36,10 +36,10 @@ while (step < max_steps):
                     tabu_list.pop(0)
                 tabu_list.append(local_solution)
             print(searched.fitness, global_solution.fitness)
-            if searched.fitness < global_solution.fitness:
+            if searched.fitness <= global_solution.fitness:
                 # print(searched.fitness, global_solution.fitness)
                 # print("OMG", searched)
-                global_solution = searched.copy()
+                global_solution = local_solution
                 # print("OMG2:",global_solution)
     step += 1
     
